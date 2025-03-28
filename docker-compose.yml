@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  backend:
+    build: ./Backend/Docker
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./Backend/app:/app
+    environment:
+      - FLASK_APP=app.py
+      - FLASK_ENV=development
+    networks:
+      - rpg-network
+
+  frontend:
+    build: ./Frontend/app/
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./Frontend/app:/app
+    networks:
+      - rpg-network
+
+networks:
+  rpg-network:
+    driver: bridge
